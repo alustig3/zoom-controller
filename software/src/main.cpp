@@ -1,10 +1,11 @@
 #include <Arduino.h>
 
-const int encoder_BTN = 15;
+const byte encoder_BTN = 15;
 const byte encoderPin1 = 33;
 const byte encoderPin2 = 27;
 volatile int lastEncoded = 0;
 int tempNow=0,tempOld = 0;
+const byte knob_sensitivity = 2;
 
 void updateEncoder(){
   int MSB = digitalRead(encoderPin1); //MSB = most significant bit
@@ -25,13 +26,22 @@ void encoderSetup(){
 }
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(115200);
   encoderSetup();
 
 }
 
 void loop() {
-  Serial.print(digitalRead(encoder_BTN));Serial.print(",");Serial.println(tempNow);
-  // put your main code here, to run repeatedly:
+  if (tempNow-tempOld>knob_sensitivity){ //CCW knob turn
+    Serial.println("CW");
+    tempNow = tempOld;
+  }
+  else if (tempNow-tempOld<-knob_sensitivity){ //CW knob turn
+    Serial.println("CCW");
+    tempNow = tempOld;
+  }
+  if (!digitalRead(encoder_BTN)){
+    Serial.println("Button Press!");
+    delay(250);
+  }
 }
