@@ -9,6 +9,13 @@ const byte encoderPin2 = 27;
 volatile int lastEncoded = 0;
 int tempNow=0,tempOld = 0;
 const byte knob_sensitivity = 2;
+const byte red_LED = 32;
+const byte green_LED = 14;
+const int redPWM = 0;
+const int greenPWM = 1;
+const int freq = 500; // 5000 Khz produced a hum at 50% duty cycle, so brought this down
+const int resolution = 8;
+int level = 0;
 
 void updateEncoder(){
   int MSB = digitalRead(encoderPin1); //MSB = most significant bit
@@ -32,21 +39,38 @@ void setup() {
   Serial.begin(115200);
   encoderSetup();
   bleKeyboard.begin();
+  ledcSetup(redPWM, freq, resolution);
+  ledcSetup(greenPWM, freq, resolution);
+  ledcAttachPin(red_LED, redPWM);
+  ledcAttachPin(green_LED, greenPWM);
 }
 
 void loop() {
+  ledcWrite(greenPWM,level);
+  ledcWrite(redPWM,255-level);
+
   if (tempNow-tempOld>knob_sensitivity){ //CCW knob turn
     Serial.println("CW");
     bleKeyboard.write(KEY_MEDIA_VOLUME_UP);
+    level+=10;
+    if (level>255){
+      level = 255;
+    }
     tempNow = tempOld;
+    digitalWrite(red_LED,HIGH);
   }
   else if (tempNow-tempOld<-knob_sensitivity){ //CW knob turn
     Serial.println("CCW");
+    level-=10;
+    if (level<0){
+      level = 0;
+    }
     bleKeyboard.write(KEY_MEDIA_VOLUME_DOWN);
     tempNow = tempOld;
   }
   if (!digitalRead(encoder_BTN)){
     Serial.println("Button Press!");
+    digitalWrite(red_LED,LOW);
     delay(250);
   }
 }
