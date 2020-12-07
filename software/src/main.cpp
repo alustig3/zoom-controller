@@ -1,4 +1,7 @@
 #include <Arduino.h>
+#include <BleKeyboard.h>
+
+BleKeyboard bleKeyboard("Zoom Pad","Lustig Labs");
 
 const byte encoder_BTN = 15;
 const byte encoderPin1 = 33;
@@ -28,16 +31,18 @@ void encoderSetup(){
 void setup() {
   Serial.begin(115200);
   encoderSetup();
-
+  bleKeyboard.begin();
 }
 
 void loop() {
   if (tempNow-tempOld>knob_sensitivity){ //CCW knob turn
     Serial.println("CW");
+    bleKeyboard.write(KEY_MEDIA_VOLUME_UP);
     tempNow = tempOld;
   }
   else if (tempNow-tempOld<-knob_sensitivity){ //CW knob turn
     Serial.println("CCW");
+    bleKeyboard.write(KEY_MEDIA_VOLUME_DOWN);
     tempNow = tempOld;
   }
   if (!digitalRead(encoder_BTN)){
