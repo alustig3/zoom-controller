@@ -1,0 +1,3 @@
+[submodule "pcb/libs"]
+	path = pcb/libs
+	url = https://github.com/alustig3/kicad-libraries.git
