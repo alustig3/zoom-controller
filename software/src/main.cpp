@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <BleKeyboard.h>
 
-BleKeyboard bleKeyboard("Hello Andy","Lustig Labs");
+BleKeyboard bleKeyboard("Zoom Controller","Lustig Labs");
 
 const byte latch_BTN = 25;
 const byte encoderPin1 = 22;
@@ -21,7 +21,7 @@ const byte btn_3 = 17;
 const byte btn_4 = 16;
 const byte btn_5 = 21;
 const int hold_time = 850;
-byte knob_brightness = 25;
+byte knob_brightness = 100;
 const int button_bounce = 200;
 
 bool isMAC = true;
@@ -30,8 +30,10 @@ unsigned long last_active;
 const long idle_limit = 20 * 1000*60; // turn off after 20 minutes of inactivity
 
 enum mode {zoom, youtube};
-enum mode active_mode;
+enum mode active_mode = zoom;
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void updateEncoder(){
   int MSB = digitalRead(encoderPin1); //MSB = most significant bit
   int LSB = digitalRead(encoderPin2); //LSB = least significant bit
@@ -49,6 +51,33 @@ void encoderSetup(){
   attachInterrupt(digitalPinToInterrupt(encoderPin2), updateEncoder, CHANGE);
 }
 
+void pulse(){
+  for (int i = 255; i >knob_brightness; i--){
+    ledcWrite(greenPWM,i);
+    delay(1);
+  }
+}
+
+void zoom_mode(){
+  bleKeyboard.press(KEY_LEFT_CTRL);
+  bleKeyboard.press(KEY_LEFT_GUI);
+  bleKeyboard.press(KEY_LEFT_ALT);
+  bleKeyboard.press(KEY_F1);
+  bleKeyboard.releaseAll();
+  pulse();
+  active_mode = zoom;
+}
+
+void youtube_mode(){
+  bleKeyboard.press(KEY_LEFT_CTRL);
+  bleKeyboard.press(KEY_LEFT_GUI);
+  bleKeyboard.press(KEY_LEFT_ALT);
+  bleKeyboard.press(KEY_F2);
+  bleKeyboard.releaseAll();
+  pulse();
+  active_mode = youtube;
+}
+
 void shortcut(char ltr){
   if (isMAC){
     bleKeyboard.press(KEY_LEFT_SHIFT);
@@ -59,10 +88,7 @@ void shortcut(char ltr){
   }
   bleKeyboard.press(ltr);
   bleKeyboard.releaseAll();
-  for (int i = 255; i >knob_brightness; i--){
-    ledcWrite(greenPWM,i);
-    delay(1);
-  }
+  pulse();
   delay(50);
 }
 
@@ -94,7 +120,7 @@ bool double_click( int btn_pin){
   }
   int second_press_timer = 0;
   bool double_clicked = false;
-  while(second_press_timer < 200){
+  while(second_press_timer < 105){
     delay(1);
     second_press_timer++;
     if (!digitalRead(btn_pin)){
@@ -137,10 +163,23 @@ void connecting(){
       }
     }
   }
+  delay(200);
+  bleKeyboard.press(KEY_LEFT_CTRL);
+  bleKeyboard.press(KEY_LEFT_GUI);
+  bleKeyboard.press(KEY_LEFT_ALT);
+  if(active_mode==zoom){
+    bleKeyboard.press(KEY_F1);
+  }
+  else{
+    bleKeyboard.press(KEY_F2);
+  }
+  bleKeyboard.releaseAll();
   ledcWrite(redPWM,0);
   ledcWrite(greenPWM,knob_brightness);
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void setup() {
   pinMode(latch_BTN, INPUT_PULLUP);
   ledcSetup(redPWM, freq, resolution);
@@ -158,14 +197,7 @@ void setup() {
   encoderSetup();
   Serial.begin(115200);
   reset_inactive_clock();
-  if (!digitalRead(btn_1)){
-    active_mode = youtube;
-    ledcWrite(redPWM,10);
-  }
-  else{
-    active_mode = zoom;
-  }
-  while(!digitalRead(latch_BTN) | !digitalRead(btn_1)){
+  while(!digitalRead(latch_BTN)){
     delay(1);
   }
 }
@@ -207,8 +239,10 @@ void loop() {
     }
   }
 
-///////////// Encoder Button Press /////////////////
+  /////////// Encoder Button Press ////////////
   else if (!digitalRead(latch_BTN)){
+    reset_inactive_clock();
+
     if(double_click(latch_BTN)){
       shutdown();
     }
@@ -217,44 +251,56 @@ void loop() {
         bleKeyboard.write('r');
         delay(button_bounce);
     }
-
-    reset_inactive_clock();
   }
 
   //////////////  Button 1 ////////////////////
-  else if (!digitalRead((btn_1))){
+  else if (!digitalRead(btn_1)){
     Serial.println("Button 1");
     reset_inactive_clock();
 
-    switch(active_mode){
-      case zoom:
-        shortcut('A');
-        break;
-      case youtube:
-        bleKeyboard.write(KEY_MEDIA_VOLUME_DOWN);
-        delay(button_bounce);
-        break;
+    if (active_mode == youtube){
+      while(!digitalRead(btn_1)){
+        if (tempNow-tempOld>knob_sensitivity){
+          Serial.println("CW");
+          tempNow = tempOld;
+          reset_inactive_clock();
+          bleKeyboard.write(KEY_MEDIA_VOLUME_UP);
+        }
+        else if (tempNow-tempOld<-knob_sensitivity){
+          Serial.println("CCW");
+          tempNow = tempOld;
+          reset_inactive_clock();
+          bleKeyboard.write(KEY_MEDIA_VOLUME_DOWN);
+        }
+      }
+    }
+    else{
+      shortcut('A');
     }
   }
 
   //////////////  Button 2 ////////////////////
-  else if (!digitalRead((btn_2))){
+  else if (!digitalRead(btn_2)){
     Serial.println("Button 2");
     reset_inactive_clock();
 
-    switch(active_mode){
-      case zoom:
+    if(double_click(btn_2)){
+      if (active_mode == zoom){
+        youtube_mode();
+      }
+      else{
+        zoom_mode();
+      }
+    }
+    else{
+      if (active_mode==zoom){
         shortcut('V');
-        break;
-      case youtube:
-        bleKeyboard.write(KEY_MEDIA_VOLUME_UP);
-        delay(button_bounce);
-        break;
+      }
     }
   }
 
   //////////////  Button 3 ////////////////////
-  else if (!digitalRead((btn_3))){
+  else if (!digitalRead(btn_3)){
     Serial.println("Button 3");
     reset_inactive_clock();
 
@@ -263,12 +309,13 @@ void loop() {
     }
     else if (active_mode == youtube){
       bleKeyboard.write('z');
+      pulse();
       delay(button_bounce);
     }
   }
 
   //////////////  Button 4 ////////////////////
-  else if (!digitalRead((btn_4))){
+  else if (!digitalRead(btn_4)){
     Serial.println("Button 4");
     reset_inactive_clock();
 
@@ -277,12 +324,13 @@ void loop() {
     }
     else if (active_mode == youtube){
       bleKeyboard.write('x');
+      pulse();
       delay(button_bounce);
     }
   }
 
   //////////////  Button 5 ////////////////////
-  else if (!digitalRead((btn_5))){
+  else if (!digitalRead(btn_5)){
     Serial.println("Button 5");
     reset_inactive_clock();
 
@@ -291,6 +339,7 @@ void loop() {
     }
     else if (active_mode == youtube){
       bleKeyboard.write(' ');
+      pulse();
       delay(button_bounce);
     }
   }
