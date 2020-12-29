@@ -31,6 +31,7 @@ bool isMAC = true;
 unsigned long last_active;
 const long idle_limit = 5 * 1000*60; // turn off after 5 minutes of inactivity
 const int warning_countdown = 10*1000; // send warning 10 seconds before idle shutdown
+const int connection_timer = 15*1000; // shutdown and stop trying to connect after  15 seconds
 
 enum mode {zoom, youtube};
 enum mode active_mode = zoom;
@@ -169,11 +170,11 @@ void connecting(){
         going_up = true;
       }
     }
-    if (millis() - last_active > 2000){// shutdown and stop trying to connect after 20 seconds
+    if (millis() - last_active > connection_timer){
       shutdown();
     }
   }
-  delay(200);
+  delay(500);
   bleKeyboard.press(KEY_LEFT_CTRL);
   bleKeyboard.press(KEY_LEFT_GUI);
   bleKeyboard.press(KEY_LEFT_ALT);
@@ -254,13 +255,28 @@ void loop() {
   else if (!digitalRead(latch_BTN)){
     reset_inactive_clock();
 
-    if(double_click(latch_BTN)){
-      shutdown();
-    }
-
-    if (active_mode == youtube){
-        bleKeyboard.write('r');
-        delay(button_bounce);
+    if (active_mode==youtube){
+      bool was_a_turn = false;
+      while(!digitalRead(latch_BTN)){
+        if (tempNow-tempOld>knob_sensitivity){
+          Serial.println("CW");
+          tempNow = tempOld;
+          reset_inactive_clock();
+          bleKeyboard.write(KEY_MEDIA_VOLUME_UP);
+          was_a_turn = true;
+        }
+        else if (tempNow-tempOld<-knob_sensitivity){
+          Serial.println("CCW");
+          tempNow = tempOld;
+          reset_inactive_clock();
+          bleKeyboard.write(KEY_MEDIA_VOLUME_DOWN);
+          was_a_turn = true;
+        }
+      }
+      if (active_mode == youtube && !was_a_turn){
+          bleKeyboard.write('r');
+          delay(button_bounce);
+      }
     }
   }
 
@@ -269,33 +285,7 @@ void loop() {
     Serial.println("Button 1");
     reset_inactive_clock();
 
-    if (active_mode == youtube){
-      while(!digitalRead(btn_1)){
-        if (tempNow-tempOld>knob_sensitivity){
-          Serial.println("CW");
-          tempNow = tempOld;
-          reset_inactive_clock();
-          bleKeyboard.write(KEY_MEDIA_VOLUME_UP);
-        }
-        else if (tempNow-tempOld<-knob_sensitivity){
-          Serial.println("CCW");
-          tempNow = tempOld;
-          reset_inactive_clock();
-          bleKeyboard.write(KEY_MEDIA_VOLUME_DOWN);
-        }
-      }
-    }
-    else{
-      shortcut('A');
-    }
-  }
-
-  //////////////  Button 2 ////////////////////
-  else if (!digitalRead(btn_2)){
-    Serial.println("Button 2");
-    reset_inactive_clock();
-
-    if(double_click(btn_2)){
+    if(double_click(btn_1)){
       if (active_mode == zoom){
         youtube_mode();
       }
@@ -305,8 +295,18 @@ void loop() {
     }
     else{
       if (active_mode==zoom){
-        shortcut('V');
+        shortcut('A');
       }
+    }
+  }
+
+  //////////////  Button 2 ////////////////////
+  else if (!digitalRead(btn_2)){
+    Serial.println("Button 2");
+    reset_inactive_clock();
+
+    if (active_mode == zoom){
+      shortcut('V');
     }
   }
 
@@ -344,6 +344,15 @@ void loop() {
   else if (!digitalRead(btn_5)){
     Serial.println("Button 5");
     reset_inactive_clock();
+
+    int hold_count = 0;
+    while(!digitalRead(btn_5)){
+      delay(1);
+      hold_count++;
+      if (hold_count>500){
+        shutdown();
+      }
+    }
 
     if(active_mode == zoom){
       leave();
