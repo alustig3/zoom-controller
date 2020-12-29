@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include <BleKeyboard.h>
+#include "soc/soc.h"
+#include "soc/rtc_cntl_reg.h"
 
 BleKeyboard bleKeyboard("Zoom Controller","Lustig Labs");
 
@@ -27,10 +29,13 @@ const int button_bounce = 200;
 bool isMAC = true;
 
 unsigned long last_active;
-const long idle_limit = 20 * 1000*60; // turn off after 20 minutes of inactivity
+const long idle_limit = 5 * 1000*60; // turn off after 5 minutes of inactivity
+const int warning_countdown = 10*1000; // send warning 10 seconds before idle shutdown
 
 enum mode {zoom, youtube};
 enum mode active_mode = zoom;
+
+bool warning_sent = false;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,6 +117,7 @@ void shutdown(){
 
 void reset_inactive_clock(){
   last_active = millis();
+  warning_sent = false;
 }
 
 bool double_click( int btn_pin){
@@ -120,7 +126,7 @@ bool double_click( int btn_pin){
   }
   int second_press_timer = 0;
   bool double_clicked = false;
-  while(second_press_timer < 105){
+  while(second_press_timer < 120){
     delay(1);
     second_press_timer++;
     if (!digitalRead(btn_pin)){
@@ -134,6 +140,7 @@ bool double_click( int btn_pin){
 }
 
 void connecting(){
+  last_active = millis();
   ledcWrite(greenPWM,0);
   bool going_up = true;
   byte red_brightness = knob_brightness;
@@ -162,6 +169,9 @@ void connecting(){
         going_up = true;
       }
     }
+    if (millis() - last_active > 2000){// shutdown and stop trying to connect after 20 seconds
+      shutdown();
+    }
   }
   delay(200);
   bleKeyboard.press(KEY_LEFT_CTRL);
@@ -181,6 +191,7 @@ void connecting(){
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void setup() {
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); //disable brownout detector   
   pinMode(latch_BTN, INPUT_PULLUP);
   ledcSetup(redPWM, freq, resolution);
   ledcWrite(redPWM,knob_brightness);
@@ -344,6 +355,15 @@ void loop() {
     }
   }
 
+  else if (millis() - last_active > (idle_limit - warning_countdown)  && !warning_sent){
+    //send warning
+    bleKeyboard.press(KEY_LEFT_CTRL);
+    bleKeyboard.press(KEY_LEFT_GUI);
+    bleKeyboard.press(KEY_LEFT_ALT);
+    bleKeyboard.press(KEY_F3);
+    bleKeyboard.releaseAll();
+    warning_sent = true;
+  }
   //////////////  Shutdown if idle ////////////////////
   else if (millis() - last_active > idle_limit){
     shutdown();
