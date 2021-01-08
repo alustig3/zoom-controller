@@ -1,0 +1,5 @@
+pcb/bom
+stencils
+ignore
+pcb/zoom_pad-backups
+software/.vscode/settings.json
