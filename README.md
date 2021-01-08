@@ -101,6 +101,7 @@ The five buttons are setup to execute the following Zoom functions by emulating 
 | View (single press) | speaker view              | alt + F1                 |
 | View (double press) | gallery view              | alt + F2                 |
 | Leave*              | leave meeting             | alt + q                  |
+
 \*Zoom Controller will automatically turn off 8 seconds after pressing **LEAVE**, unless you keep it awake by pressing a button or rotating the knob within those 8 seconds. The knob will blink green indicating that it is about to turn itself off.
 
 ## Switching Modes
