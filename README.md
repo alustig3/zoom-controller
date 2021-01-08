@@ -14,9 +14,9 @@
 - [Getting fancy](#getting-fancy)
   - [Desktop notifications](#desktop-notifications)
   - [YouTube controller](#youtube-controller)
-- [How do I get one?](#how-do-i-get-one)
-  - [Building](#building)
-  - [Buying](#Buying-¯\\\_(ツ)_/¯)
+- [How do I make one?](#how-do-i-make-one)
+  - [Stand](#stand)
+  - [Electronics](#electronics)
 - [Feedback](#feedback)
 # What is this?
 I, like many others, found myself using Zoom video conference software a lot this past year. 
@@ -44,7 +44,7 @@ If it is the first time using Zoom Controller, you will need to add it your comp
 - Open to System Prefrences -> Bluetooth
 - Turn on the Zoom Controller by pressing the **VOLUME** knob until a red light appears
 - When it appears in your list of Bluetooth devices, click connect. Once connected, the light will turn green.
-<!-- ![alt](docs/connecting.gif) -->
+![alt](docs/connecting.gif)
 ### Windows
 - Search for "bluetooth" in the search bar and select "Bluetooth and other devices settings"
 - At the top, click "Add Bluetooth or other device"
@@ -59,7 +59,7 @@ The Zoom Controller can only be connected to one device at a time. If you want t
 - Right click on the Zoom Controller and select "Remove"
 ### Windows
 - Search for "bluetooth" in the search bar and select "Bluetooth and other devices settings"
-- Under the "Mouse, keyboard, & pen" 
+- Under the "Mouse, keyboard, & pen" click "Zoom Controller" and then click "Remove"
 ## Turn on
 Press and hold the **VOLUME**  knob to turn on. 
 You can let go of the knob as soon as you see it light up. 
@@ -137,7 +137,7 @@ You can enable Zoom Controller notifications show up on your desktop. The follow
 - "Zoom Mode"
 - "YouTube Mode"
 - "Controller has been idle for awhile and will soon turn itself off. Press any button or rotate knob to keep awake"
-### Mac Notifications Setup
+### Mac notifications setup
 - Download [Hammerspoon](https://www.hammerspoon.org/).
 - Click the Hammerspooon menu bar icon and select "Open Config".
 - Add the following to your `init.lua` file:
@@ -169,7 +169,7 @@ end)
 - Save your changes to the `inti.lua` file then click the Hammerspoon menu bar icon and select "Reload Config" 
 ### Windows notifications setup
 - Download [AutoHotkey](https://www.autohotkey.com/)
-- Download this [zoom_controller_notifications.ahk](zoom_controller_notifications.ahk) script file
+- Download this [zoom_controller_notifications.ahk](docs/zoom_controller_notifications.ahk) script file
 - Once the script file is downloaded, double click it to begin running the script
 - If you want the script to automatically run every time to turn on your computer, follow instructions [here](https://www.autohotkey.com/docs/FAQ.htm#Startup)
 
@@ -192,13 +192,17 @@ My extension settings are the following
 | Leave  | leave meeting     | spacebar          |
 
 #### Adjust playback speed
-Increase/decrease the video playback speed by rotating the VOLUME knob clockwise/counterclockwise.
+- Increase/decrease the video playback speed by rotating the VOLUME knob clockwise/counterclockwise
+- Reset playback speed by clicking the VOLUME knob
 #### Adjust Volume
-Increase/decrease the volume by pressing and holding down MIC then rotating the VOLUME knob clockwise/counterclockwise.
+- Increase/decrease the volume by pressing and holding down MIC then rotating the VOLUME knob clockwise/counterclockwise.
 
 
-# How do I get one?
-## Building
+# How do I make one?
+## Stand
+- 6mm long M3 x 0.5mm screws: https://www.mcmaster.com/92095A179/
+- I got the metal stands cut and bent at https://www.oshcut.com/
+## Electronics
 ### Bill of Materials
 | Qty | Reference          | Description       | Value/MPN                                                                                                    | 
 |-----|--------------------|-------------------|--------------------------------------------------------------------------------------------------------------|
@@ -223,10 +227,12 @@ Increase/decrease the volume by pressing and holding down MIC then rotating the 
   </a>
 </div>
 
-
+### Programming
+I developed the code using [PlatformIO](https://docs.platformio.org/en/latest/boards/espressif32/esp32dev.html). I used an [ESP-PROG](https://www.digikey.com/en/products/detail/espressif-systems/ESP-PROG/10259352?s=N4IgTCBcDaIKYGcAOBaJAnA9gcxAXQF8g) to program the ESP32 microcontroller.
+You should be able to use the platform.ini file from this repository, you'll just need to change the upload port. 
+The platform.ini will automatically download the requisite [ESP32-BLE-Keyboard](https://github.com/T-vK/ESP32-BLE-Keyboard) library and ESP32 and Arduino.
 # Feedback
-## Selling  ¯\\\_(ツ)_/¯
-If people are interested, I may consider buying some parts in bulk and selling the controllers on [Tindie](https://www.tindie.com/) or [Etsy](https://www.etsy.com/).
+If people are interested, I may consider buying some parts in bulk and selling the controllers on [Tindie](https://www.tindie.com/) or [Etsy](https://www.etsy.com/) ¯\\\_(ツ)_/¯
 
 If you have questions, comments, or are interested in buying a Zoom Controller:
 
