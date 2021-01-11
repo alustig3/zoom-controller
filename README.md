@@ -20,31 +20,41 @@
 - [Feedback](#feedback)
 # What is this?
 I, like many others, found myself using Zoom video conference software a lot this past year. 
-I created this device to make interacting with the Zoom faster and more pleasant. 
+I created this device to make interacting with Zoom faster and more pleasant. 
 
 - The Zoom Controller connects with your computer over Bluetooth and emulates keyboard key presses
+- Works with Mac and Windows
 - Five buttons are setup to emulate the default keyboard shortcuts in Zoom
-- The knob controls the computer's media volume
+- A knob controls the computer's media volume
 - Powered by two AA batteries
-- The circuit board mounts to bent piece of 12 Gauge steel
-- Bonus feature include desktop notifications and YouTube Mode (see [getting fancy](#getting-fancy))
+- The circuit board mounts to a bent piece of 12 Gauge steel
+- Bonus features include desktop notifications and YouTube Mode (see [getting fancy](#getting-fancy))
 
 
 # How do I use it? 
-- [Connecting to Bluetooth](#connecting-to-bluetooth)
-- [Disconnecting Bluetooth](#disconnecting-bluetooth)
 - [Turn on](#turn-on)
+- [Connecting to Bluetooth](#connecting-to-bluetooth)
 - [Turn off](#turn-off)
+- [Disconnecting Bluetooth](#disconnecting-bluetooth)
 - [Controlling Zoom!](#controlling-zoom)
-- [Change operating system](#change-operating-system)
+- [Switching modes](#switching-modes)
+
+## Turn on
+Press and hold the **VOLUME** knob to turn on. 
+You can let go of the knob as soon as you see it light up red. 
+The knob will "breathe" red light while it is trying to connect. Once connected, the knob will turn green. 
+
+The controller will automatically turn off after 20 seconds attempting and failing to connect.
 
 ## Connecting to Bluetooth
 If it is the first time using Zoom Controller, you will need to add it your computer's list of Bluetooth devices. Once added, the Zoom Controller will automatically connect when turned on and within range of your computer.
 ### Mac
 - Open to System Prefrences -> Bluetooth
-- Turn on the Zoom Controller by pressing the **VOLUME** knob until a red light appears
+- [Turn on](#turn-on) Zoom Controller
 - When it appears in your list of Bluetooth devices, click connect. Once connected, the light will turn green.
+
 ![alt](docs/connecting.gif)
+
 ### Windows
 - Search for "bluetooth" in the search bar and select "Bluetooth and other devices settings"
 - At the top, click "Add Bluetooth or other device"
@@ -52,28 +62,22 @@ If it is the first time using Zoom Controller, you will need to add it your comp
 - Turn on the Zoom Controller by pressing the **VOLUME** knob until a red light appears
 - Zoom controller should appear in the "Add a device" list
 
-## Disconnecting Bluetooth
-The Zoom Controller can only be connected to one device at a time. If you want to use it with a different computer it is important that you first remove it from it's current computer's bluetooth device list.
-### Mac
-- Open to System Prefrences -> Bluetooth
-- Right click on the Zoom Controller and select "Remove"
-### Windows
-- Search for "bluetooth" in the search bar and select "Bluetooth and other devices settings"
-- Under the "Mouse, keyboard, & pen" click "Zoom Controller" and then click "Remove"
-## Turn on
-Press and hold the **VOLUME**  knob to turn on. 
-You can let go of the knob as soon as you see it light up. 
-The knob will "breathe" red light while it is trying to connect. 
-Once connected, the knob will turn green. 
-
-The controller will automatically turn off after 20 seconds attempting and failing to connect.
-
 ## Turn off
 Press and hold the **LEAVE** button. The volume knob's light will turn off when the controller is powered off.
 
 There is an idle clock always counting. 
 Every time you press a button or rotate the knob, the idle clock is reset to 0. 
 If the idle clock reaches 60 minutes, the controller will automatically turn itself off to save battery.
+
+## Disconnecting Bluetooth
+The Zoom Controller can only be connected to one device at a time. If you want to use it with a different computer it is important that you first remove it from its current computer's Bluetooth device list.
+### Mac
+- Open to System Prefrences -> Bluetooth
+- Right click on the Zoom Controller and select "Remove"
+### Windows
+- Search for "bluetooth" in the search bar and select "Bluetooth and other devices settings"
+- Under the "Mouse, keyboard, & pen" click "Zoom Controller" and then click "Remove device"
+
 
 ## Controlling Zoom!
 
@@ -102,14 +106,15 @@ The five buttons are setup to execute the following Zoom functions by emulating 
 | View (double press) | gallery view              | alt + F2                 |
 | Leave*              | leave meeting             | alt + q                  |
 
-\*Zoom Controller will automatically turn off 8 seconds after pressing **LEAVE**, unless you keep it awake by pressing a button or rotating the knob within those 8 seconds. The knob will blink green indicating that it is about to turn itself off.
+**Zoom Controller will automatically turn off 8 seconds after pressing **LEAVE**, unless you keep it awake by pressing a button or rotating the knob within those 8 seconds. 
+The knob will blink green indicating that the controller is about to turn itself off.*
 
 ## Switching Modes
 Keyboard shortcuts sent by Zoom Controller depend on which operating system and which application is being used. 
 Because of this, there are 4 different modes that Zoom controller can be in. 
 There are 2 operating system modes (Mac, Windows) and 2 application modes (Zoom, YouTube*)
 
-*see [YouTube Controller](##youtube-controller)
+**see [YouTube Controller](#youtube-controller)*
 
 ### Mac Mode
 - Press down the **VOLUME** button. 
@@ -171,15 +176,17 @@ end)
 - Download [AutoHotkey](https://www.autohotkey.com/)
 - Download this [zoom_controller_notifications.ahk](docs/zoom_controller_notifications.ahk) script file
 - Once the script file is downloaded, double click it to begin running the script
-- If you want the script to automatically run every time to turn on your computer, follow instructions [here](https://www.autohotkey.com/docs/FAQ.htm#Startup)
+- If you want the script to automatically run every time you turn on your computer, follow instructions [here](https://www.autohotkey.com/docs/FAQ.htm#Startup)
 
 ## YouTube controller
-I've found this device to be super useful for watching online videos. I installed the [Video Speed Controller](https://chrome.google.com/webstore/detail/video-speed-controller/nffaoalbilbmmfgbnbgppjihopabppdk) extension. 
+I've found this device to be super useful for watching online videos
 
-My extension settings are the following
+### Installation
+<!-- I use an extension called **Video Speed Controller** that can bee added to Chrome or Firefox (Chrome extension [here](https://chrome.google.com/webstore/detail/video-speed-controller/nffaoalbilbmmfgbnbgppjihopabppdk), Firefox extension [here](https://addons.mozilla.org/en-US/firefox/addon/videospeed/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search)) -->
 
-![](docs/youtube_extension_settings.png)
-
+- Add an extension called **Video Speed Controller** to your browser
+  - [Chrome extension](https://chrome.google.com/webstore/detail/video-speed-controller/nffaoalbilbmmfgbnbgppjihopabppdk)
+  - [Firefrox extension](https://addons.mozilla.org/en-US/firefox/addon/videospeed/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search)
 
 ### Controlling YouTube
 #### Send Shortcuts
@@ -200,8 +207,9 @@ My extension settings are the following
 
 # How do I make one?
 ## Stand
+- 0.1" thick (12Ga) steel cut and bent at https://www.oshcut.com/
 - 6mm long M3 x 0.5mm screws: https://www.mcmaster.com/92095A179/
-- I got the metal stands cut and bent at https://www.oshcut.com/
+
 ## Electronics
 ### Bill of Materials
 | Qty | Reference          | Description       | Value/MPN                                                                                                    | 
@@ -228,7 +236,8 @@ My extension settings are the following
 </div>
 
 ### Programming
-I developed the code using [PlatformIO](https://docs.platformio.org/en/latest/boards/espressif32/esp32dev.html). I used an [ESP-PROG](https://www.digikey.com/en/products/detail/espressif-systems/ESP-PROG/10259352?s=N4IgTCBcDaIKYGcAOBaJAnA9gcxAXQF8g) to program the ESP32 microcontroller.
+The code was developed using [PlatformIO](https://docs.platformio.org/en/latest/boards/espressif32/esp32dev.html).
+An [ESP-PROG](https://www.digikey.com/en/products/detail/espressif-systems/ESP-PROG/10259352?s=N4IgTCBcDaIKYGcAOBaJAnA9gcxAXQF8g) was used to program the ESP32 microcontroller.
 You should be able to use the platform.ini file from this repository, you'll just need to change the upload port. 
 The platform.ini will automatically download the requisite [ESP32-BLE-Keyboard](https://github.com/T-vK/ESP32-BLE-Keyboard) library and ESP32 and Arduino.
 # Feedback
