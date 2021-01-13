@@ -36,8 +36,6 @@ I created this device to make interacting with Zoom faster and more pleasant.
   </a>
 </div>
 
-[![Watch the video](docs/demo_screenshot.png)]("https://alustig3.github.io/zoom-controller/demovideo.mp4")
-
 # How do I use it? 
 - [Turn on](#turn-on)
 - [Connecting to Bluetooth](#connecting-to-bluetooth)
