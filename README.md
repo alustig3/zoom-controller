@@ -31,10 +31,12 @@ I created this device to make interacting with Zoom faster and more pleasant.
 - Bonus features include desktop notifications and YouTube Mode (see [getting fancy](#getting-fancy))
 
 <div style="">
-  <a href="https://alustig3.github.io/zoom-controller/demo_video.mp4">
+  <a href="https://alustig3.github.io/zoom-controller/demovideo.mp4">
   <img src="docs/demo_screenshot.png">
   </a>
 </div>
+
+[![Watch the video](docs/demo_screenshot.png)]("https://alustig3.github.io/zoom-controller/demovideo.mp4")
 
 # How do I use it? 
 - [Turn on](#turn-on)
