@@ -4,10 +4,10 @@
 
 - [What is this?](#what-is-this)
 - [How do I use it?](#how-do-i-use-it)
+  - [Turning on](#turning-on)
   - [Connecting to Bluetooth](#connecting-to-bluetooth)
+  - [Turning off](#turning-off)
   - [Disconnecting Bluetooth](#disconnecting-bluetooth)
-  - [Turn on](#turn-on)
-  - [Turn off](#turn-off)
   - [Adjust volume](#adjust-volume)
   - [Controlling Zoom!](#controlling-zoom)
   - [Switching Modes](#switching-modes)
@@ -30,6 +30,11 @@ I created this device to make interacting with Zoom faster and more pleasant.
 - The circuit board mounts to a bent piece of 12 Gauge steel
 - Bonus features include desktop notifications and YouTube Mode (see [getting fancy](#getting-fancy))
 
+<div style="">
+  <a href="https://alustig3.github.io/zoom-controller/demo_video.mp4">
+  <img src="docs/demo_screenshot.png">
+  </a>
+</div>
 
 # How do I use it? 
 - [Turn on](#turn-on)
@@ -39,7 +44,7 @@ I created this device to make interacting with Zoom faster and more pleasant.
 - [Controlling Zoom!](#controlling-zoom)
 - [Switching modes](#switching-modes)
 
-## Turn on
+## Turning on
 Press and hold the **VOLUME** knob to turn on. 
 You can let go of the knob as soon as you see it light up red. 
 The knob will "breathe" red light while it is trying to connect. Once connected, the knob will turn green. 
@@ -50,8 +55,9 @@ The controller will automatically turn off after 20 seconds attempting and faili
 If it is the first time using Zoom Controller, you will need to add it your computer's list of Bluetooth devices. Once added, the Zoom Controller will automatically connect when turned on and within range of your computer.
 ### Mac
 - Open to System Prefrences -> Bluetooth
-- [Turn on](#turn-on) Zoom Controller
-- When it appears in your list of Bluetooth devices, click connect. Once connected, the light will turn green.
+- [Turn on](#turning-on) Zoom Controller
+- When it appears in your list of Bluetooth devices, click connect. Once connected, the light will turn green, and you're good to go!
+- There may be a "Keyboard Setup Assistant" window that pops up asking you to press a key to identify your keyboard. You can ignore this and just close the window.
 
 ![alt](docs/connecting.gif)
 
@@ -62,7 +68,7 @@ If it is the first time using Zoom Controller, you will need to add it your comp
 - Turn on the Zoom Controller by pressing the **VOLUME** knob until a red light appears
 - Zoom controller should appear in the "Add a device" list
 
-## Turn off
+## Turning off
 Press and hold the **LEAVE** button. The volume knob's light will turn off when the controller is powered off.
 
 There is an idle clock always counting. 
@@ -97,7 +103,7 @@ The five buttons are setup to execute the following Zoom functions by emulating 
 
 ### Send Shortcuts on Windows
 
-| Button              | Zoom Function             | Emulate Windows Keypress |
+| Button              | Zoom Function             | Emulated Windows Keypress |
 |---------------------|---------------------------|--------------------------|
 | Mic                 | mute/unmute microphone    | alt + a                  |
 | Camera              | start/stop video          | alt + v                  |
@@ -156,8 +162,8 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "F2", function()
 end)
 
 hs.hotkey.bind({"cmd","alt","ctrl"}, "F3", function()
-  hs.notify.new({title="Zoom Controller", informativeText="Controller has been idle for 5 minutes\n Press any key to keep awake"}):send()
-end)
+  hs.notify.new({title="Zoom Controller Idle", informativeText="Controller will turn off soon\nPress any key to keep awake"}):send()
+end))
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "F4", function()
   hs.alert.show("Zoom Mode")
@@ -167,9 +173,6 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "F5", function()
   hs.alert.show("YouTube Mode")
 end)
 
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "F6", function()
-  hs.alert.show("Blackboard Mode")
-end)
 ```
 - Save your changes to the `inti.lua` file then click the Hammerspoon menu bar icon and select "Reload Config" 
 ### Windows notifications setup
@@ -182,9 +185,7 @@ end)
 I've found this device to be super useful for watching online videos
 
 ### Installation
-<!-- I use an extension called **Video Speed Controller** that can bee added to Chrome or Firefox (Chrome extension [here](https://chrome.google.com/webstore/detail/video-speed-controller/nffaoalbilbmmfgbnbgppjihopabppdk), Firefox extension [here](https://addons.mozilla.org/en-US/firefox/addon/videospeed/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search)) -->
-
-- Add an extension called **Video Speed Controller** to your browser
+- Add an extension called **Video Speed Controller** to your web browser
   - [Chrome extension](https://chrome.google.com/webstore/detail/video-speed-controller/nffaoalbilbmmfgbnbgppjihopabppdk)
   - [Firefrox extension](https://addons.mozilla.org/en-US/firefox/addon/videospeed/?utm_source=addons.mozilla.org&utm_medium=referral&utm_content=search)
 
@@ -200,10 +201,9 @@ I've found this device to be super useful for watching online videos
 
 #### Adjust playback speed
 - Increase/decrease the video playback speed by rotating the VOLUME knob clockwise/counterclockwise
-- Reset playback speed by clicking the VOLUME knob
+- Toggle between 1X speed and your adjusted playback speed by clicking the VOLUME knob
 #### Adjust Volume
 - Increase/decrease the volume by pressing and holding down MIC then rotating the VOLUME knob clockwise/counterclockwise.
-
 
 # How do I make one?
 ## Stand
