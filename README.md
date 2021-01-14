@@ -3,6 +3,7 @@
 # Table of Contents
 
 - [What is this?](#what-is-this)
+  - [Demo Video](#demo-video)
 - [How do I use it?](#how-do-i-use-it)
   - [Turning on](#turning-on)
   - [Connecting to Bluetooth](#connecting-to-bluetooth)
@@ -30,6 +31,7 @@ I created this device to make interacting with Zoom faster and more pleasant.
 - The circuit board mounts to a bent piece of 12 Gauge steel
 - Bonus features include desktop notifications and YouTube Mode (see [getting fancy](#getting-fancy))
 
+## Demo video
 <div style="">
   <a href="https://alustig3.github.io/zoom-controller/demovideo.mp4">
   <img src="docs/demo_screenshot.png">
@@ -37,9 +39,9 @@ I created this device to make interacting with Zoom faster and more pleasant.
 </div>
 
 # How do I use it? 
-- [Turn on](#turn-on)
+- [Turning on](#turning-on)
 - [Connecting to Bluetooth](#connecting-to-bluetooth)
-- [Turn off](#turn-off)
+- [Turning off](#turning-off)
 - [Disconnecting Bluetooth](#disconnecting-bluetooth)
 - [Controlling Zoom!](#controlling-zoom)
 - [Switching modes](#switching-modes)
@@ -59,14 +61,16 @@ If it is the first time using Zoom Controller, you will need to add it your comp
 - When it appears in your list of Bluetooth devices, click connect. Once connected, the light will turn green, and you're good to go!
 - There may be a "Keyboard Setup Assistant" window that pops up asking you to press a key to identify your keyboard. You can ignore this and just close the window.
 
-![alt](docs/connecting.gif)
+![](docs/connecting.gif)
 
 ### Windows
 - Search for "bluetooth" in the search bar and select "Bluetooth and other devices settings"
 - At the top, click "Add Bluetooth or other device"
-- Click "Bluetooth"
+- Click "Bluetooth - Mice, keyboards, pens or other kinds of Bluetooth devices"
 - Turn on the Zoom Controller by pressing the **VOLUME** knob until a red light appears
 - Zoom controller should appear in the "Add a device" list
+
+![](docs/connecting_windows.gif)
 
 ## Turning off
 Press and hold the **LEAVE** button. The volume knob's light will turn off when the controller is powered off.
@@ -141,6 +145,8 @@ There are 2 operating system modes (Mac, Windows) and 2 application modes (Zoom,
 - Press and release the CAMERA button
 
 # Getting fancy
+- [Desktop notifications](#desktop-notifications)
+- [YouTube controller](#youtube-controller)
 ## Desktop notifications
 You can enable Zoom Controller notifications show up on your desktop. The following notifications will appear when relevant:
 - "Mac Mode"
@@ -206,7 +212,10 @@ I've found this device to be super useful for watching online videos
 - Increase/decrease the volume by pressing and holding down MIC then rotating the VOLUME knob clockwise/counterclockwise.
 
 # How do I make one?
+- [Stand](#stand)
+- [Electronics](#electronics)
 ## Stand
+- File for lasercutting: [stand.dxf](https://alustig3.github.io/zoom-controller/stand.dxf)
 - 0.1" thick (12Ga) steel cut and bent at https://www.oshcut.com/
 - 6mm long M3 x 0.5mm screws: https://www.mcmaster.com/92095A179/
 
