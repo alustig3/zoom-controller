@@ -1,4 +1,4 @@
-# define VERSION 2021010700
+# define VERSION 2021012800
 
 #include <Arduino.h>
 #include <BleKeyboard.h>
@@ -15,7 +15,7 @@ BleKeyboard bleKeyboard("Zoom Controller","Lustig Labs");
 unsigned long last_active;
 unsigned long idle_limit;
 const int connection_timer = 30*1000; // shutdown and stop trying to connect after  25 seconds
-const int warning_countdown = 10*1000; // send warning 10 seconds before idle shutdown
+const int warning_countdown = 5*1000; // send warning 5 seconds before idle shutdown
 const int zoom_idle = 30 * 60*1000; //30 minutes
 const int youtube_idle = 5 * 60*1000; //5 minutes
 const byte debounce = 200;
@@ -275,6 +275,9 @@ void last_chance(int last_chance_timer){
         stay_awake = true;
         start_last_chance = millis() - last_chance_timer;
       }
+      else if (!digitalRead(btn_5)){ //press leave button to skip warning and proceed with shutdown
+        shutdown();
+      }
       delay(1);
     }
     for( int i = 0 ; i<blink_delay; i++){
@@ -283,6 +286,9 @@ void last_chance(int last_chance_timer){
         stay_awake = true;
         start_last_chance = millis() - last_chance_timer;
       }
+      else if (!digitalRead(btn_5)){ //press leave button to skip warning and proceed with shutdown
+        shutdown();
+      }
       delay(1);
     }
   }
@@ -290,7 +296,7 @@ void last_chance(int last_chance_timer){
     ledcWrite(greenPWM,knob_brightness);
     delay(debounce);
   }
-  else{
+  else{ // there was no activity during warning, so we continue with shutdown
     shutdown();
   }
 }
