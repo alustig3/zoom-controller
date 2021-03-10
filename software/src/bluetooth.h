@@ -102,6 +102,8 @@ void leave(){
   }
 
   bleKeyboard.releaseAll();
+  delay(250);
+  bleKeyboard.write(KEY_RETURN);
   last_chance(8000);
 }
 
