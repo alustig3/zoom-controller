@@ -11,7 +11,7 @@
   - [Disconnecting Bluetooth](#disconnecting-bluetooth)
   - [Adjust volume](#adjust-volume)
   - [Controlling Zoom!](#controlling-zoom)
-  - [Switching Modes](#switching-modes)
+  - [Switching modes](#switching-modes)
 - [Getting fancy](#getting-fancy)
   - [Desktop notifications](#desktop-notifications)
   - [YouTube controller](#youtube-controller)
@@ -49,14 +49,14 @@ I created this device to make interacting with Zoom faster and more pleasant.
 ## Turning on
 Press and hold the **VOLUME** knob to turn on. 
 You can let go of the knob as soon as you see it light up red. 
-The knob will "breathe" red light while it is trying to connect. Once connected, the knob will turn green. 
+The knob will "breathe" red light while it is trying to connect to Bluetooth. Once connected, the knob will turn green. 
 
 The controller will automatically turn off after 20 seconds attempting and failing to connect.
 
 ## Connecting to Bluetooth
 If it is the first time using Zoom Controller, you will need to add it your computer's list of Bluetooth devices. Once added, the Zoom Controller will automatically connect when turned on and within range of your computer.
 ### Mac
-- Open to System Prefrences -> Bluetooth
+- Open System Preferences -> Bluetooth
 - [Turn on](#turning-on) Zoom Controller
 - When it appears in your list of Bluetooth devices, click connect. Once connected, the light will turn green, and you're good to go!
 - There may be a "Keyboard Setup Assistant" window that pops up asking you to press a key to identify your keyboard. You can ignore this and just close the window.
@@ -97,41 +97,41 @@ Rotate the **VOLUME** knob clockwise to increase volume, counterclockwise to dec
 ### Send Shortcuts on Mac
 The five buttons are setup to execute the following Zoom functions by emulating their default keyboard shortcuts.
 
-| Button | Zoom Function             | Emulated Mac Keypress |
-|--------|---------------------------|-----------------------|
-| Mic    | mute/unmute microphone    | shift + command + a   |
-| Camera | start/stop video          | shift + command + v   |
-| Share  | start/stop screen sharing | shift + command + s   |
-| View   | speaker/gallery view      | shift + command + w   |
-| Leave* | leave meeting             | command + w           |
+| Button | Zoom Function             | Emulated Mac Keypress                           |
+|--------|---------------------------|-------------------------------------------------|
+| Mic    | mute/unmute microphone    | shift + command + a                             |
+| Camera | start/stop video          | shift + command + v                             |
+| Share  | start/stop screen sharing | shift + command + s                             |
+| View   | speaker/gallery view      | shift + command + w                             |
+| Leave* | leave meeting             | command + w, followed by Return to confirm leave |
 
 ### Send Shortcuts on Windows
 
-| Button              | Zoom Function             | Emulated Windows Keypress |
-|---------------------|---------------------------|--------------------------|
-| Mic                 | mute/unmute microphone    | alt + a                  |
-| Camera              | start/stop video          | alt + v                  |
-| Share               | start/stop screen sharing | alt + s                  |
-| View (single press) | speaker view              | alt + F1                 |
-| View (double press) | gallery view              | alt + F2                 |
-| Leave*              | leave meeting             | alt + q                  |
+| Button              | Zoom Function             | Emulated Windows Keypress                  |
+|---------------------|---------------------------|--------------------------------------------|
+| Mic                 | mute/unmute microphone    | alt + a                                    |
+| Camera              | start/stop video          | alt + v                                    |
+| Share               | start/stop screen sharing | alt + s                                    |
+| View (single press) | speaker view              | alt + F1                                   |
+| View (double press) | gallery view              | alt + F2                                   |
+| Leave*              | leave meeting             | alt + q, folowed by Enter to confirm leave |
 
 **Zoom Controller will automatically turn off 8 seconds after pressing **LEAVE**, unless you keep it awake by pressing a button or rotating the knob within those 8 seconds. 
 The knob will blink green indicating that the controller is about to turn itself off.*
 
-## Switching Modes
+## Switching modes
 Keyboard shortcuts sent by Zoom Controller depend on which operating system and which application is being used. 
 Because of this, there are 4 different modes that Zoom controller can be in. 
-There are 2 operating system modes (Mac, Windows) and 2 application modes (Zoom, YouTube*)
+There are 2 operating system modes (Mac, Windows) and 2 application modes (Zoom, YouTube*).
 
 **see [YouTube Controller](#youtube-controller)*
 
-### Mac Mode
+### Mac mode
 - Press down the **VOLUME** button. 
 - While holding the **VOLUME** button, press and hold the **MIC** button for 2 seconds
 - The **VOLUME** button will blink **3** times indicating it is now in Mac mode. You can release both buttons.
 
-### Windows Mode
+### Windows mode
 - Press down the **VOLUME** button. 
 - While holding the **VOLUME** button, press and hold the **CAMERA** button for 2 seconds
 - The **VOLUME** button will blink **7** times indicating it is now in Windows mode. You can release both buttons.
@@ -188,7 +188,7 @@ end)
 - If you want the script to automatically run every time you turn on your computer, follow instructions [here](https://www.autohotkey.com/docs/FAQ.htm#Startup)
 
 ## YouTube controller
-I've found this device to be super useful for watching online videos
+I've found this device to be super useful for watching online videos.
 
 ### Installation
 - Add an extension called **Video Speed Controller** to your web browser
@@ -248,7 +248,7 @@ I've found this device to be super useful for watching online videos
 The code was developed using [PlatformIO](https://docs.platformio.org/en/latest/boards/espressif32/esp32dev.html).
 An [ESP-PROG](https://www.digikey.com/en/products/detail/espressif-systems/ESP-PROG/10259352?s=N4IgTCBcDaIKYGcAOBaJAnA9gcxAXQF8g) was used to program the ESP32 microcontroller.
 You should be able to use the platform.ini file from this repository, you'll just need to change the upload port. 
-The platform.ini will automatically download the requisite [ESP32-BLE-Keyboard](https://github.com/T-vK/ESP32-BLE-Keyboard) library and ESP32 and Arduino.
+The platform.ini will automatically download the requisite [ESP32-BLE-Keyboard](https://github.com/T-vK/ESP32-BLE-Keyboard) library and ESP32 and Arduino frameworks.
 # Feedback
 If people are interested, I may consider buying some parts in bulk and selling the controllers on [Tindie](https://www.tindie.com/) or [Etsy](https://www.etsy.com/) ¯\\\_(ツ)_/¯
 
