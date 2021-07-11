@@ -145,8 +145,6 @@ There are 2 operating system modes (Mac, Windows) and 2 application modes (Zoom,
 - Press and release the CAMERA button
 
 # Getting fancy
-- [Desktop notifications](#desktop-notifications)
-- [YouTube controller](#youtube-controller)
 ## Desktop notifications
 You can enable Zoom Controller notifications show up on your desktop. The following notifications will appear when relevant:
 - "Mac Mode"
@@ -212,8 +210,6 @@ I've found this device to be super useful for watching online videos.
 - Increase/decrease the volume by pressing and holding down MIC then rotating the VOLUME knob clockwise/counterclockwise.
 
 # How do I make one?
-- [Stand](#stand)
-- [Electronics](#electronics)
 ## Stand
 - File for lasercutting: [stand.dxf](https://alustig3.github.io/zoom-controller/stand.dxf)
 - 0.1" thick (12Ga) steel cut and bent at https://www.oshcut.com/
