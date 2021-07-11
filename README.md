@@ -18,6 +18,8 @@
 - [How do I make one?](#how-do-i-make-one)
   - [Stand](#stand)
   - [Electronics](#electronics)
+  - [Additional hardware](#additional-hardware)
+  - [Software](#software)
 - [Feedback](#feedback)
 # What is this?
 I, like many others, found myself using Zoom video conference software a lot this past year. 
@@ -213,7 +215,6 @@ I've found this device to be super useful for watching online videos.
 ## Stand
 - File for lasercutting: [stand.dxf](https://alustig3.github.io/zoom-controller/stand.dxf)
 - 0.1" thick (12Ga) steel cut and bent at https://www.oshcut.com/
-- 6mm long M3 x 0.5mm screws: https://www.mcmaster.com/92095A179/
 
 ## Electronics
 ### Bill of Materials
@@ -240,7 +241,11 @@ I've found this device to be super useful for watching online videos.
   </a>
 </div>
 
-### Programming
+## Additional hardware
+- 6mm long M3 x 0.5mm screws: https://www.mcmaster.com/92095A179/
+- Clear plastic knob for rotary encoder: https://www.sparkfun.com/products/10597
+
+## Software
 The code was developed using [PlatformIO](https://docs.platformio.org/en/latest/boards/espressif32/esp32dev.html).
 An [ESP-PROG](https://www.digikey.com/en/products/detail/espressif-systems/ESP-PROG/10259352?s=N4IgTCBcDaIKYGcAOBaJAnA9gcxAXQF8g) was used to program the ESP32 microcontroller.
 You should be able to use the platform.ini file from this repository, you'll just need to change the upload port. 
