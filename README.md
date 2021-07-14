@@ -203,7 +203,7 @@ I've found this device to be super useful for watching online videos.
 | Camera | rewind 10s        | z                 |
 | Share  | fast forward 10s  | x                 |
 | View   | toggle fullscreen | f                 |
-| Leave  | leave meeting     | spacebar          |
+| Leave  | play/pause        | spacebar          |
 
 #### Adjust playback speed
 - Increase/decrease the video playback speed by rotating the VOLUME knob clockwise/counterclockwise
